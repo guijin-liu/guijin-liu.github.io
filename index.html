@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刘圭金 | 技术博客 & 量化投资</title>
+    <meta name="description" content="刘圭金 - 江西赣州信丰技术开发者，专注AI工具链、量化交易与内容变现">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f172a; color: #e2e8f0; line-height: 1.6;
+        }
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(59,130,246,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(239,68,68,0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+        @keyframes float { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-20px,-20px); } }
+        .hero-content { position: relative; z-index: 1; text-align: center; padding: 2rem; max-width: 800px; }
+        .avatar {
+            width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 2rem;
+            background: linear-gradient(135deg, #3b82f6, #ef4444);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; font-weight: bold; color: white;
+            box-shadow: 0 0 40px rgba(59,130,246,0.3);
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #60a5fa, #f87171); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tagline { font-size: 1.2rem; color: #94a3b8; margin-bottom: 2rem; }
+        .links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 3rem; }
+        .link-card {
+            background: rgba(30,41,59,0.8); border: 1px solid rgba(59,130,246,0.3);
+            padding: 1rem 1.5rem; border-radius: 12px; text-decoration: none; color: #e2e8f0;
+            transition: all 0.3s; backdrop-filter: blur(10px);
+        }
+        .link-card:hover { border-color: #3b82f6; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(59,130,246,0.2); }
+        .link-card .icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+        .link-card .title { font-weight: 600; }
+        .link-card .desc { font-size: 0.85rem; color: #64748b; }
+        .sections { max-width: 1000px; margin: 0 auto; padding: 4rem 2rem; }
+        .section-title { font-size: 1.8rem; margin-bottom: 2rem; color: #60a5fa; border-bottom: 2px solid rgba(59,130,246,0.3); padding-bottom: 0.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .card { background: #1e293b; border-radius: 12px; padding: 1.5rem; border: 1px solid #334155; transition: all 0.3s; }
+        .card:hover { border-color: #3b82f6; transform: translateY(-2px); }
+        .card h3 { color: #f87171; margin-bottom: 0.5rem; }
+        .card p { color: #94a3b8; font-size: 0.95rem; }
+        .stock-widget { background: #1e293b; border-radius: 12px; padding: 1.5rem; border: 1px solid #334155; margin-top: 2rem; }
+        .stock-name { font-size: 1.2rem; font-weight: bold; }
+        .stock-code { color: #64748b; font-size: 0.9rem; }
+        .stock-price { font-size: 2rem; font-weight: bold; margin: 0.5rem 0; }
+        .stock-up { color: #ef4444; }
+        .stock-down { color: #22c55e; }
+        footer { text-align: center; padding: 2rem; color: #475569; border-top: 1px solid #1e293b; }
+        @media (max-width: 600px) { h1 { font-size: 1.8rem; } .links { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <div class="avatar">LGJ</div>
+            <h1>刘圭金</h1>
+            <p class="tagline">AI工具链 · 量化交易 · 内容变现</p>
+            <div class="links">
+                <a href="https://github.com/guijin-liu" class="link-card" target="_blank">
+                    <div class="icon">📂</div>
+                    <div class="title">GitHub</div>
+                    <div class="desc">开源项目 & 代码</div>
+                </a>
+                <a href="#quant" class="link-card">
+                    <div class="icon">📈</div>
+                    <div class="title">量化信号</div>
+                    <div class="desc">A股交易信号系统</div>
+                </a>
+                <a href="#blog" class="link-card">
+                    <div class="icon">📝</div>
+                    <div class="title">博客</div>
+                    <div class="desc">技术笔记 & 分享</div>
+                </a>
+                <a href="#about" class="link-card">
+                    <div class="icon">👤</div>
+                    <div class="title">关于我</div>
+                    <div class="desc">江西赣州信丰</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="sections" id="quant">
+        <h2 class="section-title">📊 量化交易信号</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>📈 雅化集团</h3>
+                <p>持仓监控 · sz002497<br>成本价: ¥23.14</p>
+            </div>
+            <div class="card">
+                <h3>🤖 AI信号系统</h3>
+                <p>基于多因子模型的A股交易信号<br>实时推送 · 云端部署</p>
+            </div>
+            <div class="card">
+                <h3>💡 国际金价</h3>
+                <p>黄金走势跟踪分析<br>锂矿产业链关联</p>
+            </div>
+        </div>
+        <div class="stock-widget">
+            <span class="stock-name">雅化集团</span>
+            <span class="stock-code"> sz002497</span>
+            <div style="margin-top: 1rem; color: #64748b; font-size: 0.9rem;">
+                实时行情数据需通过API加载 · 仓位: <span style="color: #ef4444;">持仓中</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="sections" id="blog">
+        <h2 class="section-title">📝 技术博客</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🔧 AI工具链配置</h3>
+                <p>WorkBuddy + Claude Code + CC Switch 完整搭建指南<br>DeepSeek V4 Pro 路由配置</p>
+            </div>
+            <div class="card">
+                <h3>⚡ 量化交易系统</h3>
+                <p>Python + akshare + mootdx 数据采集<br>实时信号推送 · 云端部署</p>
+            </div>
+            <div class="card">
+                <h3>🛒 闲鱼无货源电商</h3>
+                <p>低成本创业实践 · 选品策略<br>自动化运营工具开发</p>
+            </div>
+            <div class="card">
+                <h3>🏠 本地生活</h3>
+                <p>信丰县本地信息发布<br>58同城运营经验分享</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sections" id="about">
+        <h2 class="section-title">👤 关于我</h2>
+        <div class="card" style="max-width: 600px;">
+            <h3>刘圭金</h3>
+            <p style="margin-top: 0.5rem;">
+                📍 江西赣州信丰<br>
+                💻 技术开发者 · AI工具链运维<br>
+                📈 A股量化交易 · 关注雅化集团(锂矿)<br>
+                🛒 闲鱼无货源电商实践者<br>
+                🔧 擅长 Python / Node.js / 系统自动化<br>
+                <br>
+                联系方式: 通过 GitHub 留言
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 刘圭金 · guijin-liu.github.io · 信丰 · 赣州</p>
+    </footer>
+</body>
+</html>
