@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="50" viewBox="0 0 100 50">
+  <defs>
+    <pattern id="scroll" x="0" y="0" width="100" height="50" patternUnits="userSpaceOnUse">
+      <path d="M0,25 C15,5 30,45 50,25 C70,5 85,45 100,25" fill="none" stroke="#2E8B8B" stroke-width="1.5" opacity="0.4"/>
+      <circle cx="25" cy="25" r="2" fill="#C9A227" opacity="0.3"/>
+      <circle cx="75" cy="25" r="2" fill="#C9A227" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="100" height="50" fill="url(#scroll)"/>
+</svg>

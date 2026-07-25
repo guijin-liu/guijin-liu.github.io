@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <pattern id="plum" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+      <g transform="translate(60,60)" opacity="0.35">
+        <circle cx="0" cy="-20" r="5" fill="#D4A5A5"/>
+        <circle cx="14" cy="-14" r="5" fill="#D4A5A5"/>
+        <circle cx="20" cy="0" r="5" fill="#D4A5A5"/>
+        <circle cx="14" cy="14" r="5" fill="#D4A5A5"/>
+        <circle cx="0" cy="20" r="5" fill="#D4A5A5"/>
+        <circle cx="-14" cy="14" r="5" fill="#D4A5A5"/>
+        <circle cx="-20" cy="0" r="5" fill="#D4A5A5"/>
+        <circle cx="-14" cy="-14" r="5" fill="#D4A5A5"/>
+        <path d="M0,0 L0,-35 M0,0 L28,-20 M0,0 L35,10 M0,0 L20,30 M0,0 L-20,30 M0,0 L-35,10 M0,0 L-28,-20" stroke="#C9A227" stroke-width="1" opacity="0.4"/>
+      </g>
+    </pattern>
+  </defs>
+  <rect width="120" height="120" fill="url(#plum)"/>
+</svg>

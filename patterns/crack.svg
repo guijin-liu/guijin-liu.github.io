@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <pattern id="crack" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+      <path d="M0,50 L40,45 L70,80 L100,60 L140,90 L180,70 L200,85" fill="none" stroke="#C9A227" stroke-width="0.8" opacity="0.25"/>
+      <path d="M0,120 L30,110 L60,140 L90,125 L130,150 L170,130 L200,145" fill="none" stroke="#C9A227" stroke-width="0.8" opacity="0.2"/>
+      <path d="M50,0 L55,30 L40,60 L60,100 L45,140 L70,180 L55,200" fill="none" stroke="#C9A227" stroke-width="0.8" opacity="0.2"/>
+      <path d="M120,0 L115,40 L140,70 L125,110 L150,150 L130,190 L145,200" fill="none" stroke="#C9A227" stroke-width="0.8" opacity="0.15"/>
+    </pattern>
+  </defs>
+  <rect width="200" height="200" fill="url(#crack)"/>
+</svg>

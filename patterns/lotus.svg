@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <pattern id="lotus" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+      <g transform="translate(60,60)" opacity="0.3">
+        <ellipse cx="0" cy="-25" rx="8" ry="20" fill="#D4A5A5" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-25" rx="8" ry="20" fill="#D4A5A5" transform="rotate(45)"/>
+        <ellipse cx="0" cy="-25" rx="8" ry="20" fill="#D4A5A5" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-25" rx="8" ry="20" fill="#D4A5A5" transform="rotate(135)"/>
+        <ellipse cx="0" cy="-25" rx="8" ry="20" fill="#D4A5A5" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-25" rx="8" ry="20" fill="#D4A5A5" transform="rotate(225)"/>
+        <ellipse cx="0" cy="-25" rx="8" ry="20" fill="#D4A5A5" transform="rotate(270)"/>
+        <ellipse cx="0" cy="-25" rx="8" ry="20" fill="#D4A5A5" transform="rotate(315)"/>
+        <circle cx="0" cy="0" r="8" fill="#C9A227"/>
+      </g>
+    </pattern>
+  </defs>
+  <rect width="120" height="120" fill="url(#lotus)"/>
+</svg>

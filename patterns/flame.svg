@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="120" viewBox="0 0 80 120">
+  <defs>
+    <pattern id="flame" x="0" y="0" width="80" height="120" patternUnits="userSpaceOnUse">
+      <path d="M40,0 Q20,40 30,70 Q40,100 40,120 Q40,100 50,70 Q60,40 40,0Z" fill="none" stroke="#C85A54" stroke-width="1.2" opacity="0.3"/>
+      <path d="M40,15 Q28,45 35,70 Q40,90 40,105 Q40,90 45,70 Q52,45 40,15Z" fill="#C85A54" opacity="0.15"/>
+    </pattern>
+  </defs>
+  <rect width="80" height="120" fill="url(#flame)"/>
+</svg>

@@ -1,150 +1,317 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LGJ | AI 工作伙伴 / 量化交易 / 自动化</title>
-    <link rel="icon" type="image/png" href="./logo.png">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
-            color: #f8fafc;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 48px;
-            max-width: 560px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 24px;
-            object-fit: cover;
-            box-shadow: 0 0 40px rgba(236,72,153,0.4);
-        }
-        h1 {
-            font-size: 32px;
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #a78bfa, #ec4899, #38bdf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .tagline {
-            color: #94a3b8;
-            font-size: 16px;
-            margin-bottom: 32px;
-        }
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-        .link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 20px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.05);
-            color: #e2e8f0;
-            text-decoration: none;
-            transition: all 0.2s;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        .link:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        .stat {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #38bdf8;
-        }
-        .stat-label {
-            font-size: 12px;
-            color: #64748b;
-            margin-top: 4px;
-        }
-        .footer {
-            margin-top: 32px;
-            font-size: 13px;
-            color: #475569;
-        }
-        @media (max-width: 480px) {
-            .card { padding: 32px 24px; }
-            h1 { font-size: 26px; }
-            .stats { grid-template-columns: 1fr; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LGJ · 东方纹韵 — 跨境电商 & 文化出海</title>
+<style>
+:root{
+  --ink:#0F1B2D; --ink2:#1A2A42; --gold:#C9A227; --gold2:#E0B83C;
+  --teal:#2E8B8B; --coral:#C85A54; --cream:#F5EDE0; --pink:#D4A5A5;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Noto Serif SC","Songti SC",serif;background:var(--ink);color:var(--cream);overflow-x:hidden}
+a{color:var(--gold2);text-decoration:none}
+
+/* ── 顶部导航 ── */
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(15,27,45,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,162,39,.2)}
+nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 24px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-mark{
+  width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:var(--ink);
+  letter-spacing:1px;box-shadow:0 0 20px rgba(201,162,39,.4);position:relative;
+}
+.logo-mark::before{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(201,162,39,.3);animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.08);opacity:.2}}
+.logo-text{font-size:14px;color:var(--cream);line-height:1.3}
+.logo-text b{color:var(--gold2);font-size:16px}
+nav ul{display:flex;gap:28px;list-style:none}
+nav ul li a{color:var(--cream);font-size:14px;transition:color .3s}
+nav ul li a:hover{color:var(--gold2)}
+.nav-cta{padding:8px 22px;border:1px solid var(--gold);border-radius:30px;color:var(--gold2);font-size:13px;transition:all .3s}
+.nav-cta:hover{background:var(--gold);color:var(--ink)}
+
+/* ── Hero ── */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;text-align:center;padding:100px 24px 60px}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(46,139,139,.15) 0%,transparent 70%)}
+.hero-bg{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M60,10 Q80,40 60,60 Q40,40 60,10Z' fill='%23C9A227'/%3E%3Ccircle cx='60' cy='60' r='3' fill='%23C9A227'/%3E%3C/svg%3E");background-size:120px 120px}
+.hero-content{position:relative;z-index:2;max-width:800px}
+.hero-tag{display:inline-block;padding:6px 20px;border:1px solid rgba(201,162,39,.4);border-radius:30px;font-size:13px;color:var(--gold2);margin-bottom:24px}
+.hero h1{font-size:52px;font-weight:700;line-height:1.3;margin-bottom:20px;background:linear-gradient(135deg,var(--cream),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero h1 span{display:block;font-size:20px;font-weight:400;color:var(--teal);margin-top:8px;-webkit-text-fill-color:var(--teal)}
+.hero p{font-size:16px;line-height:1.8;color:rgba(245,237,224,.7);max-width:600px;margin:0 auto 36px}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{padding:14px 36px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--ink);border-radius:30px;font-weight:600;font-size:15px;transition:transform .3s,box-shadow .3s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,162,39,.4)}
+.btn-ghost{padding:14px 36px;border:1px solid rgba(201,162,39,.5);color:var(--cream);border-radius:30px;font-size:15px;transition:all .3s}
+.btn-ghost:hover{border-color:var(--gold2);background:rgba(201,162,39,.1)}
+
+/* 装饰圆 */
+.hero-deco{position:absolute;width:300px;height:300px;border-radius:50%;border:1px solid rgba(201,162,39,.1);top:50%;left:50%;transform:translate(-50%,-50%);animation:rotate 40s linear infinite}
+.hero-deco2{position:absolute;width:220px;height:220px;border-radius:50%;border:1px dashed rgba(46,139,139,.15);top:50%;left:50%;transform:translate(-50%,-50%);animation:rotate 30s linear infinite reverse}
+@keyframes rotate{to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+/* ── 区块通用 ── */
+section{padding:80px 24px;position:relative}
+.container{max-width:1200px;margin:0 auto}
+.sec-title{text-align:center;margin-bottom:50px}
+.sec-title h2{font-size:34px;color:var(--cream);margin-bottom:12px}
+.sec-title h2 em{color:var(--gold2);font-style:normal}
+.sec-title p{color:rgba(245,237,224,.5);font-size:14px}
+.divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:16px auto}
+
+/* ── LGJ品牌标识区 ── */
+.brand{background:var(--ink2);border-top:1px solid rgba(201,162,39,.15);border-bottom:1px solid rgba(201,162,39,.15)}
+.brand-grid{display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap}
+.brand-logo-lg{
+  width:160px;height:160px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 50%,var(--coral) 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:48px;color:var(--ink);letter-spacing:2px;
+  box-shadow:0 0 60px rgba(201,162,39,.3);position:relative;flex-shrink:0;
+}
+.brand-logo-lg::before{content:"";position:absolute;inset:-12px;border-radius:50%;border:2px solid rgba(201,162,39,.2)}
+.brand-logo-lg::after{content:"";position:absolute;inset:-24px;border-radius:50%;border:1px dashed rgba(201,162,39,.1)}
+.brand-info{text-align:left;max-width:500px}
+.brand-info h3{font-size:24px;color:var(--gold2);margin-bottom:8px}
+.brand-info p{font-size:15px;line-height:1.8;color:rgba(245,237,224,.6)}
+.brand-tags{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.brand-tags span{padding:4px 14px;border:1px solid rgba(46,139,139,.4);border-radius:20px;font-size:12px;color:var(--teal)}
+
+/* ── 服务卡片 ── */
+.services{background:var(--ink)}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.svc-card{
+  background:linear-gradient(160deg,rgba(26,42,66,.8),rgba(15,27,45,.8));
+  border:1px solid rgba(201,162,39,.15);border-radius:var(--radius);padding:36px 28px;
+  transition:all .4s;position:relative;overflow:hidden;
+}
+.svc-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.svc-card:hover{border-color:rgba(201,162,39,.4);transform:translateY(-4px)}
+.svc-card:hover::before{transform:scaleX(1)}
+.svc-icon{width:56px;height:56px;border-radius:14px;background:rgba(201,162,39,.1);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px}
+.svc-card h3{font-size:19px;color:var(--cream);margin-bottom:10px}
+.svc-card p{font-size:14px;line-height:1.7;color:rgba(245,237,224,.55)}
+
+/* ── 纹样画廊 ── */
+.gallery{background:var(--ink2)}
+.gallery-bg{position:absolute;inset:0;opacity:.03;background-image:url("patterns/cloud.svg");background-size:120px}
+.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.gal-item{
+  border-radius:var(--radius);overflow:hidden;aspect-ratio:1;position:relative;
+  border:1px solid rgba(201,162,39,.15);transition:all .4s;cursor:pointer;
+}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.gal-item:hover{border-color:var(--gold2);box-shadow:0 8px 40px rgba(201,162,39,.15)}
+.gal-item:hover img{transform:scale(1.08)}
+.gal-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(15,27,45,.9));padding:20px 14px 12px;text-align:center}
+.gal-label b{display:block;font-size:15px;color:var(--gold2)}
+.gal-label span{font-size:11px;color:rgba(245,237,224,.5)}
+
+/* ── 文化自信 ── */
+.culture{background:var(--ink);text-align:center}
+.culture-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;margin-top:40px}
+.cul-feat{text-align:center}
+.cul-feat-num{font-size:42px;font-weight:700;color:var(--gold2);margin-bottom:8px}
+.cul-feat h4{font-size:16px;color:var(--cream);margin-bottom:6px}
+.cul-feat p{font-size:13px;color:rgba(245,237,224,.5);line-height:1.6}
+
+/* ── CTA ── */
+.cta{background:linear-gradient(135deg,var(--ink2),var(--ink));text-align:center;border-top:1px solid rgba(201,162,39,.15)}
+.cta-box{background:linear-gradient(135deg,rgba(201,162,39,.08),rgba(46,139,139,.08));border:1px solid rgba(201,162,39,.2);border-radius:var(--radius);padding:50px 30px;max-width:700px;margin:0 auto}
+.cta-box h2{font-size:28px;color:var(--cream);margin-bottom:12px}
+.cta-box h2 em{color:var(--gold2);font-style:normal}
+.cta-box p{color:rgba(245,237,224,.6);margin-bottom:28px;font-size:15px}
+
+/* ── 页脚 ── */
+footer{background:var(--ink);padding:40px 24px;text-align:center;border-top:1px solid rgba(201,162,39,.1)}
+footer .logo{justify-content:center;margin-bottom:16px}
+footer p{font-size:13px;color:rgba(245,237,224,.4);line-height:1.8}
+footer .footer-links{display:flex;gap:20px;justify-content:center;margin:16px 0}
+footer .footer-links a{font-size:13px;color:rgba(245,237,224,.5)}
+
+/* ── 响应式 ── */
+@media(max-width:768px){
+  nav ul{display:none}
+  .hero h1{font-size:32px}
+  .brand-grid{flex-direction:column;text-align:center}
+  .brand-info{text-align:center}
+}
+</style>
 </head>
 <body>
-    <div class="card">
-        <img src="./logo.png" alt="LGJ Logo" class="avatar">
-        <h1>LGJ</h1>
-        <p class="tagline">AI 工具链配置 · 量化交易系统 · 自动化工作流</p>
-        
-        <div class="links">
-            <a href="https://github.com/guijin-liu" class="link" target="_blank">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-            </a>
-            <a href="https://www.duckdns.org/" class="link" target="_blank">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                DuckDNS: guijin-liu.duckdns.org
-            </a>
-            <a href="mailto:182521582@qq.com" class="link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                182521582@qq.com
-            </a>
-        </div>
 
-        <div class="stats">
-            <div class="stat">
-                <div class="stat-value">AI</div>
-                <div class="stat-label">工具链</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value">量化</div>
-                <div class="stat-label">交易系统</div>
-            </div>
-            <div class="stat">
-                <div class="stat-value">自动</div>
-                <div class="stat-label">化运维</div>
-            </div>
-        </div>
-
-        <div class="footer">
-            持续探索 AI 与自动化
-        </div>
+<!-- ═══ 导航 ═══ -->
+<header>
+  <nav>
+    <div class="logo">
+      <div class="logo-mark">LGJ</div>
+      <div class="logo-text"><b>东方纹韵</b><br>LGJ Cultural Commerce</div>
     </div>
+    <ul>
+      <li><a href="#brand">品牌</a></li>
+      <li><a href="#services">服务</a></li>
+      <li><a href="#gallery">纹样库</a></li>
+      <li><a href="#culture">文化自信</a></li>
+    </ul>
+    <a href="#cta" class="nav-cta">联系我们</a>
+  </nav>
+</header>
+
+<!-- ═══ Hero ═══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-deco"></div>
+  <div class="hero-deco2"></div>
+  <div class="hero-content">
+    <span class="hero-tag">传统文化 × 跨境电商</span>
+    <h1>东方纹韵，世界共赏<span>Traditional Patterns · Global Commerce</span></h1>
+    <p>以中国传统纹样为灵魂，以跨境电商为桥梁。LGJ 致力于将东方美学的千年积淀，通过现代商业传递到世界每一个角落。</p>
+    <div class="hero-btns">
+      <a href="#gallery" class="btn-primary">浏览纹样库</a>
+      <a href="#services" class="btn-ghost">了解服务</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LGJ 品牌标识 ═══ -->
+<section class="brand" id="brand">
+  <div class="container">
+    <div class="brand-grid">
+      <div class="brand-logo-lg">LGJ</div>
+      <div class="brand-info">
+        <h3>LGJ · 东方纹韵</h3>
+        <p>LGJ 取自创始人姓名首字母，寓意「Linked Global Journey」——连接全球的东方之旅。我们以中国传统纹样为核心视觉资产，打造兼具文化底蕴与商业价值的跨境品牌。</p>
+        <div class="brand-tags">
+          <span>跨境电商</span>
+          <span>代采服务</span>
+          <span>文化传播</span>
+          <span>原创设计</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 服务 ═══ -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="sec-title">
+      <h2>核心<em>服务</em></h2>
+      <div class="divider"></div>
+      <p>四大业务板块，覆盖文化出海全链路</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-icon">🛒</div>
+        <h3>跨境电商</h3>
+        <p>依托传统纹样原创设计，打造具有东方美学辨识度的商品矩阵，面向全球市场销售。从选品到上架，全流程数字化运营。</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">📋</div>
+        <h3>代位采购</h3>
+        <p>为海外客户提供中国优质商品的采购代理服务。深入了解国内供应链，以文化视角甄选好物，跨境物流一站式解决。</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">📢</div>
+        <h3>传媒传播</h3>
+        <p>以图文、短视频、直播等形式，向全球受众讲述中国传统纹样背后的故事。让每一件商品都承载文化叙事。</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🎨</div>
+        <h3>原创纹样设计</h3>
+        <p>基于敦煌、唐宋、明清等传统纹样体系，原创再设计数十种可商用纹样。版权清晰，可授权、可定制、可衍生。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 纹样画廊 ═══ -->
+<section class="gallery" id="gallery">
+  <div class="gallery-bg"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <div class="sec-title">
+      <h2>原创<em>纹样库</em></h2>
+      <div class="divider"></div>
+      <p>12 种 AI 生成原创纹样 + 12 种 SVG 矢量图案，持续扩充中</p>
+    </div>
+    <div class="gal-grid">
+      <div class="gal-item"><img src="images/baoxiang-flower.png" alt="宝相花纹"><div class="gal-label"><b>宝相花纹</b><span>Baoxiang Flower</span></div></div>
+      <div class="gal-item"><img src="images/scroll-grass.png" alt="卷草纹"><div class="gal-label"><b>卷草纹</b><span>Scroll Grass</span></div></div>
+      <div class="gal-item"><img src="images/lotus-mandala.png" alt="莲花纹"><div class="gal-label"><b>莲花纹</b><span>Lotus Mandala</span></div></div>
+      <div class="gal-item"><img src="images/cloud-pattern.png" alt="祥云纹"><div class="gal-label"><b>祥云纹</b><span>Auspicious Cloud</span></div></div>
+      <div class="gal-item"><img src="images/honeysuckle.png" alt="忍冬纹"><div class="gal-label"><b>忍冬纹</b><span>Honeysuckle</span></div></div>
+      <div class="gal-item"><img src="images/diamond-lattice.png" alt="菱格纹"><div class="gal-label"><b>菱格纹</b><span>Diamond Lattice</span></div></div>
+      <div class="gal-item"><img src="images/pearl-roundel.png" alt="联珠纹"><div class="gal-label"><b>联珠纹</b><span>Pearl Roundel</span></div></div>
+      <div class="gal-item"><img src="images/ice-crack.png" alt="冰裂纹"><div class="gal-label"><b>冰裂纹</b><span>Ice Crack</span></div></div>
+      <div class="gal-item"><img src="images/peony.png" alt="牡丹纹"><div class="gal-label"><b>牡丹纹</b><span>Peony</span></div></div>
+      <div class="gal-item"><img src="images/bat-fu.png" alt="五福纹"><div class="gal-label"><b>五福纹</b><span>Five Bats</span></div></div>
+      <div class="gal-item"><img src="images/phoenix.png" alt="凤尾纹"><div class="gal-label"><b>凤尾纹</b><span>Phoenix Tail</span></div></div>
+      <div class="gal-item"><img src="images/coin.png" alt="铜钱纹"><div class="gal-label"><b>铜钱纹</b><span>Ancient Coin</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 文化自信 ═══ -->
+<section class="culture" id="culture">
+  <div class="container">
+    <div class="sec-title">
+      <h2>文化<em>自信</em></h2>
+      <div class="divider"></div>
+      <p>让东方美学成为世界语言</p>
+    </div>
+    <div class="culture-features">
+      <div class="cul-feat">
+        <div class="cul-feat-num">24+</div>
+        <h4>原创纹样</h4>
+        <p>基于传统纹样体系原创再设计，版权清晰可商用</p>
+      </div>
+      <div class="cul-feat">
+        <div class="cul-feat-num">1000+</div>
+        <h4>年文化积淀</h4>
+        <p>从敦煌到唐宋明清，千年纹样基因焕新呈现</p>
+      </div>
+      <div class="cul-feat">
+        <div class="cul-feat-num">∞</div>
+        <h4>SVG 矢量库</h4>
+        <p>12 种矢量图案无限缩放，适配任意场景</p>
+      </div>
+      <div class="cul-feat">
+        <div class="cul-feat-num">Global</div>
+        <h4>跨境出海</h4>
+        <p>以文化为锚点，将东方好物送达全球消费者</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta" id="cta">
+  <div class="container">
+    <div class="cta-box">
+      <h2>与 <em>LGJ</em> 一起，让东方纹韵走向世界</h2>
+      <p>无论你是寻求跨境合作、代采服务，还是纹样授权定制，我们都期待与你共创价值。</p>
+      <a href="#" class="btn-primary">开启合作</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 页脚 ═══ -->
+<footer>
+  <div class="logo">
+    <div class="logo-mark">LGJ</div>
+    <div class="logo-text"><b>东方纹韵</b><br>LGJ Cultural Commerce</div>
+  </div>
+  <div class="footer-links">
+    <a href="#brand">关于我们</a>
+    <a href="#services">服务</a>
+    <a href="#gallery">纹样库</a>
+    <a href="#cta">合作</a>
+  </div>
+  <p>© 2026 LGJ 东方纹韵 · 跨境电商 & 文化出海<br>All patterns are original designs inspired by traditional Chinese motifs.</p>
+</footer>
+
 </body>
 </html>
