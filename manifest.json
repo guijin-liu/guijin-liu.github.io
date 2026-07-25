@@ -1,7 +1,7 @@
 {
-  "name": "出殡择日 - 重丧日查询",
-  "short_name": "出殡择日",
-  "description": "按节气分季节，查询重丧日禁忌，判断可否出殡",
+  "name": "道教正一派普俺刘桥生择日工具",
+  "short_name": "刘桥生择日",
+  "description": "道教正一派出殡择日工具，按节气分季节，查询重丧日禁忌",
   "start_url": "chubin.html",
   "display": "standalone",
   "orientation": "portrait",
