@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0F1B2D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="出殡择日">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<title>出殡择日</title>
+<script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.12/dist/lunar.min.js"></script>
+<style>
+:root{
+  --ink:#0F1B2D; --ink2:#1A2A42; --gold:#C9A227; --gold2:#E0B83C;
+  --teal:#2E8B8B; --coral:#C85A54; --cream:#F5EDE0; --safe:#4CAF7C; --safe2:#6FCC8F;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:"Noto Serif SC","Songti SC",serif;background:var(--ink);color:var(--cream);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px}
+
+.app{width:100%;max-width:480px;display:flex;flex-direction:column;min-height:100vh}
+header{text-align:center;padding:20px 0 30px}
+header h1{font-size:26px;color:var(--gold2);letter-spacing:2px}
+header p{font-size:12px;color:rgba(245,237,224,.4);margin-top:6px}
+
+/* 主结果区 */
+.result-main{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:320px;text-align:center;margin-bottom:20px;
+}
+.result-icon{
+  width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:56px;margin-bottom:20px;animation:popIn .4s ease;
+}
+.result-icon.ok{background:rgba(76,175,124,.12);border:2px solid var(--safe)}
+.result-icon.no{background:rgba(200,90,84,.12);border:2px solid var(--coral)}
+.result-icon.wait{background:rgba(201,162,39,.1);border:2px dashed rgba(201,162,39,.3);color:rgba(245,237,224,.3)}
+@keyframes popIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+
+.result-text{font-size:32px;font-weight:700;margin-bottom:8px}
+.result-text.ok{color:var(--safe2)}
+.result-text.no{color:var(--coral)}
+.result-text.wait{color:rgba(245,237,224,.3);font-size:20px}
+
+.result-sub{font-size:14px;color:rgba(245,237,224,.5);line-height:1.8;max-width:320px}
+.result-sub b{color:var(--gold2)}
+
+/* 日期信息卡 */
+.info-card{
+  background:var(--ink2);border:1px solid rgba(201,162,39,.15);border-radius:12px;
+  padding:16px 18px;margin-bottom:16px;font-size:13px;display:none;
+}
+.info-card.show{display:block;animation:fadeUp .3s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.info-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(201,162,39,.06)}
+.info-row:last-child{border:0}
+.info-row .k{color:rgba(245,237,224,.45)}
+.info-row .v{color:var(--cream)}
+.info-row .v.danger{color:var(--coral)}
+.info-row .v.safe{color:var(--safe2)}
+
+/* 禁忌详情 */
+.detail-card{
+  background:var(--ink2);border:1px solid rgba(200,90,84,.2);border-radius:12px;
+  padding:16px 18px;margin-bottom:16px;display:none;
+}
+.detail-card.show{display:block;animation:fadeUp .3s}
+.detail-card h4{font-size:14px;color:var(--coral);margin-bottom:10px}
+.detail-item{font-size:13px;line-height:1.8;color:rgba(245,237,224,.6);padding:6px 0;border-bottom:1px solid rgba(201,162,39,.06)}
+.detail-item:last-child{border:0}
+.detail-item b{color:var(--gold2)}
+
+/* 输入区 */
+.input-area{margin-top:auto;padding-top:16px}
+.date-picker{
+  width:100%;padding:16px;background:var(--ink2);border:1px solid rgba(201,162,39,.25);
+  border-radius:12px;color:var(--cream);font-size:18px;font-family:inherit;text-align:center;
+  margin-bottom:12px;
+}
+.date-picker:focus{outline:none;border-color:var(--gold)}
+.btn-check{
+  width:100%;padding:16px;background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--ink);border:none;border-radius:12px;font-size:18px;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:transform .15s;
+}
+.btn-check:active{transform:scale(.97)}
+
+/* 快捷按钮 */
+.quick-row{display:flex;gap:8px;margin-top:10px}
+.quick-btn{
+  flex:1;padding:10px;background:rgba(46,139,139,.08);border:1px solid rgba(46,139,139,.2);
+  border-radius:8px;color:var(--teal);font-size:13px;cursor:pointer;font-family:inherit;text-align:center;
+}
+
+/* 口诀参考 */
+.rule-toggle{
+  text-align:center;margin-top:16px;font-size:12px;color:rgba(245,237,224,.35);
+  cursor:pointer;text-decoration:underline;
+}
+.rule-box{
+  background:var(--ink2);border:1px solid rgba(201,162,39,.1);border-radius:12px;
+  padding:16px;margin-top:10px;display:none;font-size:12px;line-height:1.8;
+}
+.rule-box.show{display:block}
+.rule-box h4{color:var(--gold2);font-size:14px;margin-bottom:8px}
+.rule-box p{color:rgba(245,237,224,.45)}
+.rule-box table{width:100%;border-collapse:collapse;margin:6px 0}
+.rule-box td{padding:3px 6px;color:rgba(245,237,224,.5);border-bottom:1px solid rgba(201,162,39,.06)}
+
+footer{text-align:center;padding:14px 0;font-size:11px;color:rgba(245,237,224,.25);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>出殡择日</h1>
+    <p>重丧日禁忌查询 · 按节气分季节</p>
+  </header>
+
+  <div class="result-main" id="resultMain">
+    <div class="result-icon wait">📅</div>
+    <div class="result-text wait">请选择日期</div>
+    <div class="result-sub">选择一个日期，查看是否可出殡</div>
+  </div>
+
+  <div class="info-card" id="infoCard"></div>
+  <div class="detail-card" id="detailCard"></div>
+
+  <div class="input-area">
+    <input type="date" class="date-picker" id="dateInput">
+    <button class="btn-check" onclick="check()">查看能否出殡</button>
+    <div class="quick-row">
+      <button class="quick-btn" onclick="quickDate(0)">今天</button>
+      <button class="quick-btn" onclick="quickDate(1)">明天</button>
+      <button class="quick-btn" onclick="quickDate(2)">后天</button>
+      <button class="quick-btn" onclick="quickDate(3)">大后天</button>
+    </div>
+  </div>
+
+  <div class="rule-toggle" onclick="toggleRule()">查看口诀规则</div>
+  <div class="rule-box" id="ruleBox">
+    <h4>月重丧口诀</h4>
+    <table>
+      <tr><td>正月、七月</td><td>庚、甲</td></tr>
+      <tr><td>二月、八月</td><td>乙、辛</td></tr>
+      <tr><td>三月、六月、九月、十二月</td><td>戊、己</td></tr>
+      <tr><td>四月、十月</td><td>丙、壬</td></tr>
+      <tr><td>五月、十一月</td><td>丁、癸</td></tr>
+    </table>
+    <h4>四季重丧（按节气）</h4>
+    <table>
+      <tr><td>春（立春～立夏前）</td><td>忌辰日</td></tr>
+      <tr><td>夏（立夏～立秋前）</td><td>忌未日</td></tr>
+      <tr><td>秋（立秋～立冬前）</td><td>忌戌日</td></tr>
+      <tr><td>冬（立冬～立春前）</td><td>忌丑日</td></tr>
+    </table>
+    <h4>大重丧</h4>
+    <p>每月逢巳日、亥日，为天地大重丧，最凶。</p>
+    <p style="margin-top:8px;color:rgba(245,237,224,.3)">犯重丧者不宜出殡，传统认为恐致再亡。</p>
+  </div>
+
+  <footer>
+    本工具依据传统择吉口诀编制，仅供参考<br>
+    © 2026 LGJ · 东方纹韵
+  </footer>
+</div>
+
+<script>
+const chongsangRules = {
+  1:['庚','甲'],2:['乙','辛'],3:['戊','己'],4:['丙','壬'],
+  5:['丁','癸'],6:['戊','己'],7:['庚','甲'],8:['乙','辛'],
+  9:['戊','己'],10:['丙','壬'],11:['丁','癸'],12:['戊','己'],
+};
+const seasonChongsang = {spring:'辰',summer:'未',autumn:'戌',winter:'丑'};
+const seasonNames = {spring:'春季',summer:'夏季',autumn:'秋季',winter:'冬季'};
+
+function getSeason(y,m,d){
+  const md = m*100+d;
+  // 节气近似（误差1-2天，足够用）
+  // 精确节气用 lunar-javascript 库
+  let lc=204, lx=505, lq=807, ld=1107;
+  try {
+    const lunar = Lunar.fromYmd(y,1,1);
+    const jq = lunar.getJieQiTable ? lunar.getJieQiTable() : null;
+    if(jq){
+      if(jq['立春']) lc = jq['立春'].getMonth()*100+jq['立春'].getDay();
+      if(jq['立夏']) lx = jq['立夏'].getMonth()*100+jq['立夏'].getDay();
+      if(jq['立秋']) lq = jq['立秋'].getMonth()*100+jq['立秋'].getDay();
+      if(jq['立冬']) ld = jq['立冬'].getMonth()*100+jq['立冬'].getDay();
+    }
+  } catch(e){}
+  if(md>=lc && md<lx) return 'spring';
+  if(md>=lx && md<lq) return 'summer';
+  if(md>=lq && md<ld) return 'autumn';
+  return 'winter';
+}
+
+function quickDate(n){
+  const d = new Date();
+  d.setDate(d.getDate()+n);
+  document.getElementById('dateInput').value = d.toISOString().slice(0,10);
+  check();
+}
+
+function toggleRule(){
+  document.getElementById('ruleBox').classList.toggle('show');
+}
+
+function check(){
+  const ds = document.getElementById('dateInput').value;
+  if(!ds){ alert('请选择日期'); return; }
+
+  const [y,m,d] = ds.split('-').map(Number);
+  const solar = Solar.fromYmd(y,m,d);
+  const lunar = solar.getLunar();
+  const lm = lunar.getMonth();
+  const dayGan = lunar.getDayGan();
+  const dayZhi = lunar.getDayZhi();
+  const dayGZ = lunar.getDayInGanZhi();
+  const monthGZ = lunar.getMonthInGanZhi();
+  const season = getSeason(y,m,d);
+  const seasonName = seasonNames[season];
+  const seasonZhi = seasonChongsang[season];
+
+  const rules = chongsangRules[lm] || [];
+  const isChongsang = rules.some(g => dayGan===g || dayZhi===g);
+  const isSeasonCS = dayZhi === seasonZhi;
+  const isBigCS = (dayZhi==='巳' || dayZhi==='亥');
+  const hasIssue = isChongsang || isSeasonCS || isBigCS;
+
+  // 主结果
+  const rm = document.getElementById('resultMain');
+  if(!hasIssue){
+    rm.innerHTML = `
+      <div class="result-icon ok">✓</div>
+      <div class="result-text ok">可出殡</div>
+      <div class="result-sub">此日未犯重丧禁忌<br>传统择吉角度，<b>可用</b></div>`;
+  } else {
+    let worst = '';
+    if(isBigCS) worst = '天地大重丧';
+    else if(isChongsang && isSeasonCS) worst = '重丧日（月忌+季忌）';
+    else if(isChongsang) worst = '月重丧日';
+    else if(isSeasonCS) worst = '四季重丧日';
+    rm.innerHTML = `
+      <div class="result-icon no">✗</div>
+      <div class="result-text no">不可出殡</div>
+      <div class="result-sub">犯<b>${worst}</b><br>建议另择吉日</div>`;
+  }
+
+  // 日期信息卡
+  const weekDays = ['日','一','二','三','四','五','六'];
+  const week = weekDays[solar.getWeek()];
+  let jqName = '';
+  try { jqName = lunar.getJieQi() || ''; } catch(e){}
+
+  const infoCard = document.getElementById('infoCard');
+  infoCard.innerHTML = `
+    <div class="info-row"><span class="k">公历</span><span class="v">${y}年${m}月${d}日 星期${week}</span></div>
+    <div class="info-row"><span class="k">农历</span><span class="v">${lunar.getMonthInChinese()}月${lunar.getDayInChinese()}</span></div>
+    <div class="info-row"><span class="k">干支</span><span class="v">${monthGZ}月 ${dayGZ}日</span></div>
+    <div class="info-row"><span class="k">天干</span><span class="v">${dayGan}</span></div>
+    <div class="info-row"><span class="k">地支</span><span class="v">${dayZhi}</span></div>
+    <div class="info-row"><span class="k">季节</span><span class="v">${seasonName}${jqName ? ' · '+jqName : ''}</span></div>
+    <div class="info-row"><span class="k">月重丧</span><span class="v ${isChongsang?'danger':'safe'}">${isChongsang?'犯（'+rules.filter(g=>dayGan===g||dayZhi===g).join('、')+'）':'未犯'}</span></div>
+    <div class="info-row"><span class="k">四季重丧</span><span class="v ${isSeasonCS?'danger':'safe'}">${isSeasonCS?'犯（'+seasonZhi+'日）':'未犯'}</span></div>
+    <div class="info-row"><span class="k">大重丧</span><span class="v ${isBigCS?'danger':'safe'}">${isBigCS?'犯（'+dayZhi+'日）':'未犯'}</span></div>
+  `;
+  infoCard.classList.add('show');
+
+  // 禁忌详情
+  const detailCard = document.getElementById('detailCard');
+  if(hasIssue){
+    let detail = '<h4>⚠ 禁忌详情</h4>';
+    if(isBigCS){
+      detail += `<div class="detail-item"><b>天地大重丧</b><br>每月逢巳日、亥日为大重丧，最凶。当日地支「${dayZhi}」命中，百事不宜，出殡尤忌。</div>`;
+    }
+    if(isChongsang){
+      const matched = rules.filter(g => dayGan===g || dayZhi===g);
+      detail += `<div class="detail-item"><b>月重丧</b><br>农历${lunar.getMonthInChinese()}月忌「${rules.join('、')}」，当日干支「${dayGZ}」命中「${matched.join('、')}」。</div>`;
+    }
+    if(isSeasonCS){
+      detail += `<div class="detail-item"><b>四季重丧</b><br>${seasonName}逢「${seasonZhi}」日为重丧，当日地支「${dayZhi}」命中。</div>`;
+    }
+    detail += `<div class="detail-item" style="border:0;color:rgba(245,237,224,.4)">传统认为犯重丧日出殡恐致再亡，建议避开此日另择吉日。</div>`;
+    detailCard.innerHTML = detail;
+    detailCard.classList.add('show');
+  } else {
+    detailCard.classList.remove('show');
+  }
+}
+
+// PWA 注册
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+
+// 初始化今天
+window.addEventListener('load', () => {
+  document.getElementById('dateInput').value = new Date().toISOString().slice(0,10);
+});
+</script>
+</body>
+</html>
